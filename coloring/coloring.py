@@ -8,6 +8,13 @@ class Coloring:
     A class to color and style text
     """
 
+    formatting = {
+        "bold": "\033[1m",
+        "italic": "\033[3m",
+        "underline": "\033[4m",
+        "strikethrough": "\033[9m",
+    }
+
     set_colors = {
         "white" : [255, 255, 255],
         "red": [255, 0, 0],
@@ -29,6 +36,24 @@ class Coloring:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     """
+    Set the cursor position within the console
+
+    Arguments:
+        x: The x position of the cursor
+        y: The y position of the cursor
+    Returns:
+        success: A boolean indicating whether the cursor position was set successfully
+    """
+
+    def setCursor(self, x, y):
+        if os.name != 'nt':
+            print("\033[%d;%dH" % (y, x))
+            return True
+        else:
+            # TODO: Move the cursor on Windows
+            return False
+
+    """
     Print some text with a specific style
     
     Arguments:
@@ -46,13 +71,10 @@ class Coloring:
             output = style.generate_string(self.set_colors)
         else:
             output = ''
-
-            if "bold" in style:
-                output += "\033[1m"
-            if "italic" in style:
-                output += "\033[3m"
-            if "underline" in style:
-                output += "\033[4m"
+            escape = '\033[0m'
+            for key in self.formatting.keys():
+                if re.search(r"\b" + re.escape(key) + r"\b", style):
+                    output += self.formatting[key]
 
             # Colors
             rgb = re.compile("RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")

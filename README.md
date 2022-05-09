@@ -25,8 +25,24 @@ color.print("This text will be purple and underlined", "underline RGB:255, 0, 25
 color.print("This text will also be purple", "purple")
 ```
 
+Defined styles:
+
+| Style                   | Example        | Output              |
+|-------------------------|----------------|---------------------|
+| RGB:0-255, 0-255, 0-255 |`RGB:255, 0, 0` | [red]               |
+| red / orange / green ...| `green`        | [green]             |
+| italic                  | `italic`       | _[italicized]_      |
+| strikethrough           | `strikethrough`| ~~[strikethrough]~~ |
+| underline               | `underline`    | [underlined]        |
+
 Use `clear()` to simply clear the console:
 
 ```python
 color.clear()
+```
+
+Use `setCursor(x, y)` to set the cursor position on the screen. Currently this really only works in terms of Y position.
+
+```python
+color.setCursor(10, 10)
 ```
