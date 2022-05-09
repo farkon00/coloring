@@ -1,19 +1,22 @@
 import re
 import os
 
+from coloring.style import Style
+
 class Coloring:
     """
     A class to color and style text
     """
 
     formatting = {
-            # Not working, TODO: "bold": "\033[1m",
+        "bold": "\033[1m",
         "italic": "\033[3m",
         "underline": "\033[4m",
         "strikethrough": "\033[9m",
     }
 
     set_colors = {
+        "white" : [255, 255, 255],
         "red": [255, 0, 0],
         "orange": [255, 127, 0],
         "yellow": [255, 255, 0],
@@ -60,8 +63,12 @@ class Coloring:
         Nothing
     """
     def print(self, text, style=None):
+        escape = '\033[0m'
         if style == None:
             print(text)
+            return
+        elif isinstance(style, Style):
+            output = style.generate_string(self.set_colors)
         else:
             output = ''
             escape = '\033[0m'
@@ -79,7 +86,6 @@ class Coloring:
                 color_set = False
                 for key in self.set_colors.keys():
                     if re.search(r"\b" + re.escape(key) + r"\b", style):
-                        color_set = True
                         color = self.set_colors[key]
                         output += '\033[38;2;' + str(color[0]) + ';' + str(color[1]) + ';' + str(color[2]) + 'm'
-            print(output + text + escape)
+        print(output + text + escape)

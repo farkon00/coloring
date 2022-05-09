@@ -1,3 +1,4 @@
+from coloring.style import Style
 from coloring.coloring import Coloring
 import os
 
