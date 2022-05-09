@@ -1,6 +1,8 @@
 import re
 import os
 
+from .style import Style
+
 class Coloring:
     """
     A class to color and style text
@@ -38,6 +40,9 @@ class Coloring:
     def print(self, text, style=None):
         if style == None:
             print(text)
+            return
+        elif isinstance(style, Style):
+            output = style.generate_string(self.set_colors)
         else:
             output = ''
             escape = '\033[0m'
@@ -59,7 +64,6 @@ class Coloring:
                 color_set = False
                 for key in self.set_colors.keys():
                     if re.search(r"\b" + re.escape(key) + r"\b", style):
-                        color_set = True
                         color = self.set_colors[key]
                         output += '\033[38;2;' + str(color[0]) + ';' + str(color[1]) + ';' + str(color[2]) + 'm'
-            print(output + text + escape)
+        print(output + text + escape)
