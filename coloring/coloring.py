@@ -79,7 +79,9 @@ class Coloring:
 
             # Colors
             rgb = re.compile(r"RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
+            bg = re.compile(r"BG:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
             rgb_match = rgb.match(style)
+            bg_match = bg.match(style)
             if rgb_match:
                 _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', rgb_match.group()))
                 output += f'\033[38;2;{r};{g};{b}m'
@@ -87,5 +89,10 @@ class Coloring:
                 for key, color in self.set_colors.items():
                     if re.search(r"\b" + re.escape(key) + r"\b", style):
                         output += f'\033[38;2;{color[0]};{color[1]};{color[2]}m'
+
+            if bg_match:
+                _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', bg_match.group()))
+                output += f'\033[48;2;{r};{g};{b}m'
+
 
         print(output + text + escape)
