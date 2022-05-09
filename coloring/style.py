@@ -1,6 +1,12 @@
+"""
+Module containing the Style class.
+"""
+
 import re
 
 class Style:
+    """Class representing style of string for Coloring class."""
+
     def __init__(self, color: tuple[int, int, int] | str = 'white',
      formatting: None | list[str] = None) -> None:
         self.color = color
@@ -18,8 +24,13 @@ class Style:
     def set_underline(self, value: bool) -> None: self._set_formatting('underline', value)
     def set_strikethrough(self, value: bool) -> None: self._set_formatting('strikethrough', value)
 
-    def generate_string(self, set_colors: dict[str, tuple[int, int, int]], formatting: dict[str, str]) -> str:
-        rgb = re.compile("RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
+    def generate_string(self, set_colors: dict[str, tuple[int, int, int]],
+     formatting: dict[str, str]) -> str:
+        """
+        Generates ANSI esacape sequence string for the style.
+        """
+
+        rgb = re.compile(r"RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
         output = ''
         for form in self.formatting:
             if form not in formatting:
@@ -37,7 +48,7 @@ class Style:
             if len(self.color) != 3:
                 raise ValueError("Color must be a tuple of length 3")
 
-            output += '\033[38;2;' + str(self.color[0]) + ';' + str(self.color[1]) + ';' + str(self.color[2]) + 'm'
+            output += f'\033[38;2;{self.color[0]};{self.color[1]};{self.color[2]}m'
         elif rgbmatch:
             _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', rgbmatch.group()))
             output += '\033[38;2;' + r + ';' + g + ';' + b + 'm'
