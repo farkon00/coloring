@@ -19,7 +19,7 @@ class Style:
         if self.underline:
             output += '\033[4m'
         if self.color in set_colors:
-            color = self.set_colors[self.color]
+            color = set_colors[self.color]
             output += '\033[38;2;' + str(color[0]) + ';' + str(color[1]) + ';' + str(color[2]) + 'm'
         elif isinstance(color, Iterable):
             if len(color) != 3:

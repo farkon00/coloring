@@ -1,7 +1,7 @@
 import re
 import os
 
-from .style import Style
+from coloring.style import Style
 
 class Coloring:
     """
@@ -38,6 +38,7 @@ class Coloring:
         Nothing
     """
     def print(self, text, style=None):
+        escape = '\033[0m'
         if style == None:
             print(text)
             return
@@ -45,7 +46,6 @@ class Coloring:
             output = style.generate_string(self.set_colors)
         else:
             output = ''
-            escape = '\033[0m'
 
             if "bold" in style:
                 output += "\033[1m"
