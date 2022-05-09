@@ -1,4 +1,5 @@
-import re
+"""Main module in coloring package."""
+
 import os
 
 from coloring.style import Style
@@ -13,6 +14,8 @@ class Coloring:
         "italic": "\033[3m",
         "underline": "\033[4m",
         "strikethrough": "\033[9m",
+        "overline" : "\033[53m",
+        "doubleunderline" : "\033[21m",
     }
 
     set_colors: dict[str, tuple[int, int, int]] = {
@@ -33,7 +36,7 @@ class Coloring:
         os.system('cls' if os.name == 'nt' else 'clear')
 
 
-    def setCursor(self, x: int, y: int) -> bool:
+    def set_cursor(self, x: int, y: int) -> bool:
         """
         Set the cursor position within the console
 
@@ -44,16 +47,16 @@ class Coloring:
             success: A boolean indicating whether the cursor position was set successfully
         """
         if os.name != 'nt':
-            print("\033[%d;%dH" % (y, x))
+            print(f"\033[{y};{x}H")
             return True
-        else:
-            # TODO: Move the cursor on Windows
-            return False
+
+        # TODO: Move the cursor on Windows
+        return False
 
     def print(self, text: str, style: str | Style | None = None) -> None:
         """
         Print some text with a specific style
-        
+
         Arguments:
             text: The text to be printed and styled
             style: An (optional) style string to dictate how the text will be styled or Style object
@@ -65,27 +68,10 @@ class Coloring:
             print(text)
             return
 
-        elif isinstance(style, Style):
+        if isinstance(style, Style):
             output = style.generate_string(self.set_colors, self.formatting)
-
-        else:
-            output = ''
-            escape = '\033[0m'
-
-            for key in self.formatting:
-                if re.search(r"\b" + re.escape(key) + r"\b", style):
-                    output += self.formatting[key]
-
-            # Colors
-            rgb = re.compile("RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
-            rgbMatch = rgb.match(style)
-            if rgbMatch:
-                _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', rgbMatch.group()))
-                output += f'\033[38;2;{r};{g};{b}m'
-            else:
-                for key in self.set_colors:
-                    if re.search(r"\b" + re.escape(key) + r"\b", style):
-                        color = self.set_colors[key]
-                        output += f'\033[38;2;{color[0]};{color[1]};{color[2]}m'
+        elif isinstance(style, str):
+            output = Style.from_string(style, self.set_colors, self.formatting).\
+                generate_string(self.set_colors, self.formatting)
 
         print(output + text + escape)
