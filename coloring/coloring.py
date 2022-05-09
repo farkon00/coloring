@@ -6,6 +6,13 @@ class Coloring:
     A class to color and style text
     """
 
+    formatting = {
+            # Not working, TODO: "bold": "\033[1m",
+        "italic": "\033[3m",
+        "underline": "\033[4m",
+        "strikethrough": "\033[9m",
+    }
+
     set_colors = {
         "red": [255, 0, 0],
         "orange": [255, 127, 0],
@@ -40,8 +47,9 @@ class Coloring:
         else:
             output = ''
             escape = '\033[0m'
-            if "underline" in style:
-                output += "\033[4m"
+            for key in self.formatting.keys():
+                if re.search(r"\b" + re.escape(key) + r"\b", style):
+                    output += self.formatting[key]
 
             # Colors
             rgb = re.compile("RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
