@@ -21,13 +21,13 @@ class Style:
         if self.color in set_colors:
             color = set_colors[self.color]
             output += '\033[38;2;' + str(color[0]) + ';' + str(color[1]) + ';' + str(color[2]) + 'm'
-        elif rgb.match(self.color):
-            _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', rgb.match(self.color).group()))
-            output += '\033[38;2;' + r + ';' + g + ';' + b + 'm'
-        elif isinstance(self.color, Iterable):
+        elif isinstance(self.color, tuple | list):
             if len(self.color) != 3:
                 raise ValueError("Color must be a tuple of length 3")
 
             output += '\033[38;2;' + str(self.color[0]) + ';' + str(self.color[1]) + ';' + str(self.color[2]) + 'm'
+        elif rgb.match(self.color):
+            _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', rgb.match(self.color).group()))
+            output += '\033[38;2;' + r + ';' + g + ';' + b + 'm'
 
         return output
