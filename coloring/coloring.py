@@ -68,7 +68,7 @@ class Coloring:
             print(text)
             return
         elif isinstance(style, Style):
-            output = style.generate_string(self.set_colors)
+            output = style.generate_string(self.set_colors, self.formatting)
         else:
             output = ''
             escape = '\033[0m'
