@@ -33,6 +33,9 @@ class Coloring:
         else:
             output = ''
             escape = '\033[0m'
+            if "underline" in style:
+                output += "\033[4m"
+
             # Colors
             rgb = re.compile("RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
             rgbMatch = rgb.match(style)
@@ -42,7 +45,7 @@ class Coloring:
             else:
                 color_set = False
                 for key in self.set_colors.keys():
-                    if key in style:
+                    if re.search(r"\b" + re.escape(key) + r"\b", style):
                         color_set = True
                         color = self.set_colors[key]
                         output += '\033[38;2;' + str(color[0]) + ';' + str(color[1]) + ';' + str(color[2]) + 'm'
