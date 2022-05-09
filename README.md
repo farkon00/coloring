@@ -44,5 +44,5 @@ color.clear()
 Use `setCursor(x, y)` to set the cursor position on the screen. Currently this really only works in terms of Y position.
 
 ```python
-color.setCursor(10, 10)`
+color.setCursor(10, 10)
 ```
