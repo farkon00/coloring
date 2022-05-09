@@ -33,6 +33,24 @@ class Coloring:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     """
+    Set the cursor position within the console
+
+    Arguments:
+        x: The x position of the cursor
+        y: The y position of the cursor
+    Returns:
+        success: A boolean indicating whether the cursor position was set successfully
+    """
+
+    def setCursor(self, x, y):
+        if os.name != 'nt':
+            print("\033[%d;%dH" % (y, x))
+            return True
+        else:
+            # TODO: Move the cursor on Windows
+            return False
+
+    """
     Print some text with a specific style
     
     Arguments:
