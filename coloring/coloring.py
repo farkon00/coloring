@@ -40,6 +40,11 @@ class Coloring:
         else:
             output = ''
             escape = '\033[0m'
+
+            if "bold" in style:
+                output += "\033[1m"
+            if "italic" in style:
+                output += "\033[3m"
             if "underline" in style:
                 output += "\033[4m"
 
