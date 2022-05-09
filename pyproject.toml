@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "coloring"
+homepage = "https://github.com/morrigan-plus-plus/coloring"
+version = "0.1.0"
+description = "A simple library for coloring and styling text in the terminal"
+authors = ["Robin Chapple <r.chapple.business@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+classifiers = [
+	"Environment :: Console",
+	"Operating System :: Microsoft :: Windows",
+	"Operating System :: MacOS",
+	"Operating System :: POSIX :: Linux",
+]
