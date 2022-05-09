@@ -1,4 +1,5 @@
 import re
+import os
 
 class Coloring:
     """
@@ -17,6 +18,12 @@ class Coloring:
 
     def __init__(self):
         pass
+    """
+    Simply clears the console
+    """
+
+    def clear(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     """
     Print some text with a specific style
