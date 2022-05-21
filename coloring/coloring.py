@@ -19,14 +19,15 @@ class Coloring:
     }
 
     set_colors: dict[str, tuple[int, int, int]] = {
-        "white" : (255, 255, 255),
-        "red": (255, 0, 0),
-        "orange": (255, 127, 0),
-        "yellow": (255, 255, 0),
-        "green": (0, 255, 0),
-        "lightblue": (0, 255, 255),
-        "blue": (0, 0, 255),
-        "purple": (255, 0, 255),
+        "white" :       (255, 255, 255),
+        "red" :         (255, 0,   0),
+        "orange" :      (255, 127, 0),
+        "yellow" :      (255, 255, 0),
+        "green" :       (0,   255, 0),
+        "lightblue" :   (0,   255, 255),
+        "blue" :        (0,   0,   255),
+        "purple" :      (255, 0,   255),
+        "pink" :        (255, 192, 203),
     }
 
     def clear(self) -> None:
