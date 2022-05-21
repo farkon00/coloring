@@ -34,6 +34,7 @@ Defined styles:
 | italic                  | `italic`       | _[italicized]_      |
 | strikethrough           | `strikethrough`| ~~[strikethrough]~~ |
 | underline               | `underline`    | [underlined]        |
+| overline                | `overline`     | [overlined]         |
 
 Use `clear()` to simply clear the console:
 
