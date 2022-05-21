@@ -53,7 +53,7 @@ class Coloring:
         # TODO: Move the cursor on Windows
         return False
 
-    def print(self, text: str, style: str | Style | None = None) -> None:
+    def print(self, text: str, style: str | Style | None = None, end="\n") -> None:
         """
         Print some text with a specific style
 
@@ -74,4 +74,4 @@ class Coloring:
             output = Style.from_string(style, self.set_colors, self.formatting).\
                 generate_string(self.set_colors, self.formatting)
 
-        print(output + text + escape)
+        print(output + text + escape, end=end)
