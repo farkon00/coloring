@@ -36,6 +36,8 @@ Defined styles:
 | underline               | `underline`    | [underlined]        |
 | overline                | `overline`     | [overlined]         |
 
+Availiable colors are : `white, red, orange, yellow, gold, green, lime, aqua, lightblue, blue, magenta, purple, pink`
+
 You can use a style object. It just a way to write styles in python object. You can change styles over time.
 ```python
 from coloring import Style
