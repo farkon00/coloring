@@ -44,7 +44,7 @@ color.print("Hello, world!", Style((233, 255, 0), formatting=["bold", "italic", 
 color.print("Hello, world!", Style((233, 255, 0), bg_color="RGB:23,56,3"))
 
 style = Style()
-style.set_bold(True) # Makes text bold
+style.set_bold() # Makes text bold
 style.set_italic(True) # Makes text italic
 style.set_italic(False) # Makes text not italic
 style.color = input("Input color name:") 
