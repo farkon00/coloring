@@ -34,6 +34,24 @@ Defined styles:
 | italic                  | `italic`       | _[italicized]_      |
 | strikethrough           | `strikethrough`| ~~[strikethrough]~~ |
 | underline               | `underline`    | [underlined]        |
+| overline                | `overline`     | [overlined]         |
+
+Availiable colors are : `white, red, orange, yellow, gold, green, lime, aqua, lightblue, blue, magenta, purple, pink`
+
+You can use a style object. It just a way to write styles in python object. You can change styles over time.
+```python
+from coloring import Style
+
+color.print("Hello, world!", Style((233, 255, 0), formatting=["bold", "italic", "overline"]))
+color.print("Hello, world!", Style((233, 255, 0), bg_color="RGB:23,56,3"))
+
+style = Style()
+style.set_bold() # Makes text bold
+style.set_italic(True) # Makes text italic
+style.set_italic(False) # Makes text not italic
+style.color = input("Input color name:") 
+color.print("Hi, there!", style)
+```
 
 Use `clear()` to simply clear the console:
 

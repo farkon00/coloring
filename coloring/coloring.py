@@ -19,14 +19,19 @@ class Coloring:
     }
 
     set_colors: dict[str, tuple[int, int, int]] = {
-        "white" : (255, 255, 255),
-        "red": (255, 0, 0),
-        "orange": (255, 127, 0),
-        "yellow": (255, 255, 0),
-        "green": (0, 255, 0),
-        "lightblue": (0, 255, 255),
-        "blue": (0, 0, 255),
-        "purple": (255, 0, 255),
+        "white" :       (255, 255, 255),
+        "red" :         (255, 0,   0),
+        "orange" :      (255, 127, 0),
+        "yellow" :      (255, 255, 0),
+        "gold" :        (255, 215, 0), 
+        "green" :       (0,   128, 0),
+        "lime" :        (0,   255, 0),
+        "aqua" :        (0,   255, 255),
+        "lightblue" :   (173, 216, 230),
+        "blue" :        (0,   0,   255),
+        "magenta" :     (255, 0,   255),
+        "purple" :      (128, 0,   128),
+        "pink" :        (255, 192, 203),
     }
 
     def clear(self) -> None:
@@ -53,7 +58,7 @@ class Coloring:
         # TODO: Move the cursor on Windows
         return False
 
-    def print(self, text: str, style: str | Style | None = None) -> None:
+    def print(self, text: str, style: str | Style | None = None, end="\n") -> None:
         """
         Print some text with a specific style
 
@@ -74,4 +79,4 @@ class Coloring:
             output = Style.from_string(style, self.set_colors, self.formatting).\
                 generate_string(self.set_colors, self.formatting)
 
-        print(output + text + escape)
+        print(output + text + escape, end=end)

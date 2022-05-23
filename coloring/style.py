@@ -22,10 +22,10 @@ class Style:
         else:
             self.formatting.remove(formatting)
 
-    def set_bold(self, value: bool) -> None: self._set_formatting('bold', value)
-    def set_italic(self, value: bool) -> None: self._set_formatting('italic', value)
-    def set_underline(self, value: bool) -> None: self._set_formatting('underline', value)
-    def set_strikethrough(self, value: bool) -> None: self._set_formatting('strikethrough', value)
+    def set_bold(self, value: bool = True) -> None: self._set_formatting('bold', value)
+    def set_italic(self, value: bool = True) -> None: self._set_formatting('italic', value)
+    def set_underline(self, value: bool = True) -> None: self._set_formatting('underline', value)
+    def set_strikethrough(self, value: bool = True) -> None: self._set_formatting('strikethrough', value)
 
     def generate_string(self, set_colors: dict[str, tuple[int, int, int]],
      formatting: dict[str, str]) -> str:
