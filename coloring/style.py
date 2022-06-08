@@ -73,13 +73,13 @@ class Style:
 
         return output
 
-    @staticmethod
-    def from_string(style: str, set_colors: dict[str, tuple[int, int, int]],
+    @classmethod
+    def from_string(cls, style: str, set_colors: dict[str, tuple[int, int, int]],
      formatting: dict[str, str]) -> Style:
         """
         Creates a Style object from a string.
         """
-        output = Style()
+        output = cls()
 
         for form in formatting:
             if re.search(r"\b" + re.escape(form) + r"\b", style):
