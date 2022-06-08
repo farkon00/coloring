@@ -54,6 +54,13 @@ style.color = input("Input color name:")
 color.print("Hi, there!", style)
 ```
 
+Also you can build Style object from string, just like print method does.
+
+```python
+style = Style.from_string("gold italic")
+color.print("Golden ello", style)
+```
+
 Use `clear()` to simply clear the console:
 
 ```python
