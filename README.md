@@ -1,6 +1,7 @@
 # Coloring
 
-![](https://img.shields.io/github/commit-activity/m/morrigan-plus-plus/coloring)![](https://img.shields.io/badge/Current%20Status-Under%20Development-red)
+![](https://img.shields.io/github/commit-activity/m/morrigan-plus-plus/coloring)
+![](https://img.shields.io/badge/Current%20Status-Under%20Development-red)
 
 __Coloring__ is a simple Python library for printing colored and styled text, with plans to expand to full-fleged TUI library.
 
@@ -38,7 +39,7 @@ Defined styles:
 
 Availiable colors are : `white, red, orange, yellow, gold, green, lime, aqua, lightblue, blue, magenta, purple, pink`
 
-You can use a style object. It just a way to write styles in python object. You can change styles over time.
+You can use a style object. It is just a way to write styles in python object. You can change styles over time.
 ```python
 from coloring import Style
 
@@ -53,6 +54,13 @@ style.color = input("Input color name:")
 color.print("Hi, there!", style)
 ```
 
+Also you can build Style object from string, just like print method does.
+
+```python
+style = Style.from_string("gold italic")
+color.print("Golden ello", style)
+```
+
 Use `clear()` to simply clear the console:
 
 ```python
@@ -60,6 +68,7 @@ color.clear()
 ```
 
 Use `setCursor(x, y)` to set the cursor position on the screen. Currently this really only works in terms of Y position.
+And doesnt really work on windows, only unix.
 
 ```python
 color.setCursor(10, 10)
