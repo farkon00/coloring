@@ -2,18 +2,24 @@
 Module containing the Style class.
 """
 from __future__ import annotations
+from typing import List, Dict, Tuple
 
 import re
+
+Color = Tuple[int, int, int]
 
 class Style:
     """Class representing style of string for Coloring class."""
 
-    def __init__(self, color: tuple[int, int, int] | str = "white",
-     bg_color: tuple[int, int, int] | str = "",
-     formatting: None | list[str] = None) -> None:
-        self.color: tuple[int, int, int] | str = color
-        self.bg_color: tuple[int, int, int] | str = bg_color
-        self.formatting: list[str] = formatting if formatting is not None else []
+    RE_RGB = re.compile(r"RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
+    RE_BG = re.compile(r"BG:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
+
+    def __init__(self, color: Color | str = "white",
+     bg_color: Color | str = "",
+     formatting: None | List[str] = None) -> None:
+        self.color: Color | str = color
+        self.bg_color: Color | str = bg_color
+        self.formatting: List[str] = formatting if formatting is not None else []
 
     def _set_formatting(self, formatting: str, value: bool) -> None:
         if value:
@@ -27,13 +33,12 @@ class Style:
     def set_underline(self, value: bool = True) -> None: self._set_formatting('underline', value)
     def set_strikethrough(self, value: bool = True) -> None: self._set_formatting('strikethrough', value)
 
-    def generate_string(self, set_colors: dict[str, tuple[int, int, int]],
-     formatting: dict[str, str]) -> str:
+    def generate_string(self, set_colors: Dict[str, Color],
+     formatting: Dict[str, str]) -> str:
         """
         Generates ANSI esacape sequence string for the style.
         """
 
-        rgb = re.compile(r"RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
         output = ''
         for form in self.formatting:
             if form not in formatting:
@@ -42,7 +47,7 @@ class Style:
 
         rgbmatch = None
         if isinstance(self.color, str):
-            rgbmatch = rgb.match(self.color)
+            rgbmatch = self.RE_RGB.match(self.color)
 
         if isinstance(self.color, str) and self.color in set_colors:
             color = set_colors[self.color]
@@ -58,7 +63,7 @@ class Style:
 
         # BG Color
         if isinstance(self.bg_color, str):
-            rgbmatch = rgb.match(self.bg_color)
+            rgbmatch = self.RE_RGB.match(self.bg_color)
             if rgbmatch:
                 _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', rgbmatch.group()))
                 output += f"\033[48;2;{r};{g};{b}m"
@@ -74,8 +79,8 @@ class Style:
         return output
 
     @classmethod
-    def from_string(cls, style: str, set_colors: dict[str, tuple[int, int, int]],
-     formatting: dict[str, str]) -> Style:
+    def from_string(cls, style: str, set_colors: Dict[str, Color],
+     formatting: Dict[str, str]) -> Style:
         """
         Creates a Style object from a string.
         """
@@ -86,10 +91,8 @@ class Style:
                 output.formatting.append(form)
 
         # Colors
-        rgb = re.compile(r"RGB:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
-        bg = re.compile(r"BG:\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}")
-        rgb_match = rgb.match(style)
-        bg_match = bg.match(style)
+        rgb_match = cls.RE_RGB.match(style)
+        bg_match = cls.RE_BG.match(style)
         if rgb_match:
             _, r, g, b = map(lambda x: x.strip(), re.split('[:,]', rgb_match.group()))
             output.color = (int(r), int(g), int(b))
