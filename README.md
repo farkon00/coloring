@@ -3,6 +3,9 @@
 ![](https://img.shields.io/github/commit-activity/m/morrigan-plus-plus/coloring)
 ![](https://img.shields.io/badge/Current%20Status-Under%20Development-red)
 
+# THIS REPOSITORY ISN'T MINE
+This is a fork of a project, that belongs to [cinnabasil](https://github.com/cinnabasil), for which the original repository was removed.
+
 __Coloring__ is a simple Python library for printing colored and styled text, with plans to expand to full-fleged TUI library.
 
 ## How to use
